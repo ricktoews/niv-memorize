@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Memorize">
+<head>
+  <meta charset="UTF-8">
+  <title>Memorization</title>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/lodash/4.14.1/lodash.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.1/ui-bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.1/ui-bootstrap-tpls.min.js"></script>
+
+  <script src="./mock.js"></script>
+  <script src="./app/main.js"></script>
+  <script src="./app/passage-controller.js"></script>
+  <script src="./app/passage-text-directive.js"></script>
+  <script src="./app/passage-parse-helper-factory.js"></script>
+  <script src="./app/key-stroke-helper-factory.js"></script>
+  <script src="./app/get-passage-service.js"></script>
+  <script src="./app/drill-service.js"></script>
+  <script src="./app/login-service.js"></script>
+  <link rel="stylesheet" href="./mock.css">
+
+</head>
+  <div class="container" ng-controller="PassageCtrl">
+    <div class="row ref-row">
+      <div class="col-md-12">
+        <!--h1>{{passage[0].book}} {{passage[0].chapter}}</h1-->
+      </div>
+    </div>
+    <div class="row" ng-repeat="item in passage track by $index">
+      <div class="col-md-2 verse-ref">{{item.book}} {{item.chapter}}:{{item.verse}}</div>
+      <div class="col-md-10"><div passage-text></div></div>
+    </div>
+  </div>
+
+</body>
+</html>
