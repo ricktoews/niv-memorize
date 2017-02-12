@@ -10,7 +10,15 @@ angular.module('Memorize')
 			return $http.get(uri).then((response) => {
 				return response.data;
 			});	
-		}
+		};
+
+		this.getPartial = function(str) {
+			var uri = restBase + '/gettitle/' + str;
+			return $http.get(uri).then((response) => {
+console.log('getPartial', uri, response);
+				return response.data;
+			});
+		};
 
 	});
 

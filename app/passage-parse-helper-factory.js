@@ -64,9 +64,20 @@ angular.module('Memorize')
 			return withBlanks.join(' ');
 		},
 
+		addSpans: function(wrong) {
+			var withSpans = reconstructable.slice(0);
+/*
+			_.each(withSpans, function(item, pos) {
+				var cls = wrong.indexOf(pos) !== -1 ? 'class="remedial"' : '';
+				withSpans[pos] = item.replace(/(\w+)/, '<span ng-click="toggleRemedial($evt) " '+cls+' data-pos="'+pos+'">$1</span>');
+			});
+			return withSpans.join(' ');
+*/
+			return withSpans;
+		},
+
 		isWordMatch: function(ndx, word) {
 			var result = masterWordList[ndx] === word.toLowerCase();
-console.log('isWordMatch', word, masterWordList[ndx]);
 			return result;
 		}
 	};

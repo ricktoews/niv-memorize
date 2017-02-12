@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Memorize">
 <head>
+  <base href="/">
   <meta charset="UTF-8">
   <title>Memorization</title>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -18,29 +19,24 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.1/ui-bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.1/ui-bootstrap-tpls.min.js"></script>
 
-  <script src="./mock.js"></script>
-  <script src="./app/main.js"></script>
-  <script src="./app/passage-controller.js"></script>
-  <script src="./app/passage-text-directive.js"></script>
-  <script src="./app/passage-parse-helper-factory.js"></script>
-  <script src="./app/key-stroke-helper-factory.js"></script>
-  <script src="./app/get-passage-service.js"></script>
-  <script src="./app/drill-service.js"></script>
-  <script src="./app/login-service.js"></script>
+  <script src="/app/main.js"></script>
+  <script src="/app/memorize-controller.js"></script>
+  <script src="/app/start-controller.js"></script>
+  <script src="/app/lookup-controller.js"></script>
+<!--  <script src="/app/passage-controller.js"></script> -->
+  <script src="/app/passage-select-directive.js"></script>
+  <script src="/app/passage-text-directive.js"></script>
+  <script src="/app/adjust-remedial-directive.js"></script>
+  <script src="/app/passage-parse-helper-factory.js"></script>
+  <script src="/app/key-stroke-helper-factory.js"></script>
+  <script src="/app/title-matches-service.js"></script>
+  <script src="/app/get-passage-service.js"></script>
+  <script src="/app/drill-service.js"></script>
+  <script src="/app/login-service.js"></script>
   <link rel="stylesheet" href="./mock.css">
 
 </head>
-  <div class="container" ng-controller="PassageCtrl">
-    <div class="row ref-row">
-      <div class="col-md-12">
-        <!--h1>{{passage[0].book}} {{passage[0].chapter}}</h1-->
-      </div>
-    </div>
-    <div class="row" ng-repeat="item in passage track by $index">
-      <div class="col-md-2 verse-ref">{{item.book}} {{item.chapter}}:{{item.verse}}</div>
-      <div class="col-md-10"><div passage-text></div></div>
-    </div>
-  </div>
-
+<body>
+<div ui-view></div>
 </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+
+<head>
+  <base href="/">
+    <title>AngularJS: UI-Router Nested States and Views</title>
+    <!-- Bootstrap CSS -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Angular -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  <!-- UI-Router -->
+  <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+  
+  <!-- App Script -->
+  <script>
+	var myapp = angular.module('myapp', ["ui.router"])
+	myapp.config(function($stateProvider, $urlRouterProvider, $locationProvider){
+		$locationProvider.html5Mode(true);
+      
+      // For any unmatched url, send to /
+		$urlRouterProvider.otherwise('/');
+      
+		$stateProvider
+			.state(
+				'app', {
+				url: '/',
+				abstract: true,
+				controller: 'MainCtrl',
+				templateUrl: 'template.layout.html'
+			})
+			.state(
+				'app.lookup', {
+				url: '',
+				controller: 'LookupCtrl',
+				templateUrl: 'template.of-interest.html'
+			})
+			.state(
+				'app.results', {
+				url: 'results/:word',
+				controller: 'ResultsCtrl',
+				templateUrl: 'template.results.html'
+			})
+
+		;
+    });
+
+	angular.module('myapp')
+
+	.controller('MainCtrl', function($scope, $state) {
+console.log('In MainCtrl');
+	})
+
+	.controller('LookupCtrl', function($scope, $state) {
+console.log('In LookupCtrl');
+	})
+
+	.controller('ResultsCtrl', function($scope, $state, $stateParams) {
+		$scope.resultsWord = $stateParams.word;
+	})
+
+	.directive('inputForm', function($state) {
+		return {
+			restrict: 'AE',
+			templateUrl: 'template.input-form.html',
+			link: function(scope, el, attr) {
+				scope.lookupWord = function(word) {
+					$state.go('app.results', { word: word });
+				};
+			}
+		};
+	})
+	;
+  </script>
+</head>
+
+<body>
+<div ui-view></div>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+<h1>Passage Display</h1>
+<table class="table" passage-text>
+  <tr class="row" ng-repeat="item in passage track by $index">
+
+    <td style="width:120px"><div class="verse-ref">{{item.book}} {{item.chapter}}:{{item.verse}}</div></td>
+
+    <td ng-show="true"><div id="text-{{$index}}" ng-keydown="getKey($event)" ng-click="firePresentField($event)" contenteditable="false" ng-mouseout="fireRestoreText($event)" data-verse-id="{{item.verse_id}}" data-wrong="{{item.wrong.join('|')}}" data-text="{{item.text}}">{{item.text}}</div></td>
+
+    <td ng-show="false">
+      <div class="adjust-remedial-wrapper">
+        <span ng-repeat="word in words" ng-click="toggleRemedial($evt)" ng-class="" data-pos="{{pos}}">{{word}}</span>
+      </div>
+    </td>
+  </tr>
+</table>

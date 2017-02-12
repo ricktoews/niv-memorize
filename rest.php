@@ -29,6 +29,7 @@ $app->put('/remedial', 'saveRemedial');
 $app->get('/check/:user_id/:text_table/:verse_id', 'checkPreviousDrill');
 $app->get('/sources/bible(/:start)', 'getBibleSources');
 $app->get('/getpassage/:book(/:chapter)(/:verse)', 'getPassage');
+$app->get('/titlematches/:str', 'getTitleMatches');
 $app->get('/poems', 'getPoetryTitles');
 $app->get('/poem/:name', 'getPoetry');
 $app->post('/passage', 'savePassage');
@@ -91,6 +92,12 @@ function getBibleSources($start = null) {
 function getPassage($book, $chapter = null, $verse = null) {
     $psg = new Passage($book, $chapter, $verse);
     $data = $psg->getScriptureText();
+    echo json_encode($data);
+}
+
+function getTitleMatches($str) {
+    $matches = new TitleMatches();
+    $data = $matches->get($str);
     echo json_encode($data);
 }
 

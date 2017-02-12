@@ -1,4 +1,5 @@
-	angular.module('Memorize')
+angular.module('Memorize')
+
 	.directive('passageText', function(KeyStrokeHelper, PassageParseHelper, drill) {
 		var text;
 		var wrong, wrongNdx = 0;
@@ -157,6 +158,7 @@ console.log('Entry not correct; should mark verse in some way.');
 			wrong = el.dataset.wrong.split('|')
 						.map(function(item) { return parseInt(item,10); })
 						.filter(function(item) { return !isNaN(item); });
+console.log('presentField wrong', wrong);
 			PassageParseHelper.parseText(el.dataset.text);
 			el.className = 'rehearse-text';
 			if (wrong.length > 0) {
@@ -195,8 +197,12 @@ console.log('Entry not correct; should mark verse in some way.');
 
 		return {
 			restrict: 'AE',
-			template: '<div id="text-{{$index}}" ng-keydown="getKey($event)" ng-click="firePresentField($event)" contenteditable="false" ng-mouseout="fireRestoreText($event)" data-verse-id="{{item.verse_id}}" data-wrong="{{item.wrong.join(\'|\')}}" data-text="{{item.text}}">{{item.text}}</div>', 
+			templateUrl: '/app/templates/enter-verse.html',
 			link: function(scope, el, attrs) {
+console.log('passage-text-directive');
+//				PassageParseHelper.parseText(scope.item.text);
+//				scope.words = PassageParseHelper.addSpans(scope.item.text);
+
 				scope.firePresentField = function(evt) {
 					var alreadyHere = isCurrentVerse(evt.currentTarget) ? true : false;
 					getElId(evt);
@@ -220,6 +226,30 @@ return false;
 					getElId(evt);
 					getKey(evt);
 				};
+
+				scope.adjustRemedial = function(evt) {
+					var el = evt.currentTarget;
+					var id = parseInt(el.id.substr(9), 10);
+					scope.state = 'adjusting';
+					var verseEl = el.parentNode.querySelectorAll('td')[2];
+					var adjust = document.createElement('div');
+					adjust.setAttribute('adjust-remedial', 'adjust-remedial');
+					verseEl.appendChild(adjust);
+console.log('adjustRemedial verse', verseEl);
+/*
+					var verseEl = document.getElementById('text-' + id);
+					var wrongPos = verseEl.dataset.wrong.split('|')
+						.map(function(item) { return parseInt(item,10); })
+						.filter(function(item) { return !isNaN(item); });
+					verseEl.setAttribute('style', 'background-color:#ccf');
+					PassageParseHelper.parseText(verseEl.dataset.text);
+					verseEl.innerHTML = PassageParseHelper.addSpans(wrongPos);
+*/
+				};
+
+				scope.toggleRemedial = function(evt) {
+					console.log('toggleRemedial', evt.currentTarget);
+				}
 			}
 		};
 	});
