@@ -29,6 +29,7 @@ $app->put('/remedial', 'saveRemedial');
 $app->get('/check/:user_id/:text_table/:verse_id', 'checkPreviousDrill');
 $app->get('/sources/bible(/:start)', 'getBibleSources');
 $app->get('/getpassage/:book(/:chapter)(/:verse)', 'getPassage');
+$app->post('/query', 'queryPassage');
 $app->get('/titlematches/:str', 'getTitleMatches');
 $app->get('/poems', 'getPoetryTitles');
 $app->get('/poem/:name', 'getPoetry');
@@ -89,10 +90,33 @@ function getBibleSources($start = null) {
     echo json_encode($books);
 }
 
-function getPassage($book, $chapter = null, $verse = null) {
+function getPassage($book = null, $chapter = null, $verse = null) {
+	$app = new \Slim\Slim();
+	if (!$book) {
+		$data = get_object_vars(json_decode($app->request()->getBody()));
+		$book = $data['book'];
+		$chapter = $data['chapter'];
+		$verse = isset($data['verse']) ? $data['verse'] : '';
+	}
+
     $psg = new Passage($book, $chapter, $verse);
     $data = $psg->getScriptureText();
     echo json_encode($data);
+}
+
+function queryPassage() {
+	$app = new \Slim\Slim();
+	$data = get_object_vars(json_decode($app->request()->getBody()));
+	$book = $data['book'];
+	$chapter = $data['chapter'];
+	$verse = isset($data['verse']) ? $data['verse'] : '';
+
+    $psg = new Passage($book, $chapter, $verse);
+	$data = $psg->getScriptureText();
+	$payload = array(
+    	"data" => $data
+	);
+    echo json_encode($payload);
 }
 
 function getTitleMatches($str) {

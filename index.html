@@ -4,10 +4,51 @@
   <base href="/">
   <meta charset="UTF-8">
   <title>Memorization</title>
+  <style type="text/css">
+    .passage-input {
+        margin:10px 0;
+        font-size:24px;
+    }
+
+    .passage-placeholder {
+        width:100%;
+        height:600px;
+        background: #eee;
+        border: 1px solid #ccc;
+    }
+
+    .text-input {
+        cursor:pointer;
+        height:50px;
+        background-color:#eee;
+        margin-bottom: 10px;
+    }
+
+	.text-input:hover {
+        background-color:#eee;
+    }
+
+    .verse-container {
+        position: relative;
+    }
+
+    .verse-num {
+        position:absolute;
+        left:-20px;
+        width:20px;
+        height:20px;
+        text-align:center;
+		background-color:#ccc;
+		box-shadow: 1px 1px 1px;
+    }
+
+  </style>
+
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/lodash/4.14.1/lodash.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+  <script src="./node_modules/angular-cache-buster/angular-cache-buster.js"></script>
 <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -19,11 +60,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.1/ui-bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.1/ui-bootstrap-tpls.min.js"></script>
 
+  <script src="/app/memorize-app.start.js"></script>
+  <script src="/app/passage-select/get-passage-service.js"></script>
+  <script src="/app/passage-display/passage-text-directive.js"></script>
+  <script src="/app/passage-display/key-stroke-helper-factory.js"></script>
+  <script src="/app/passage-display/passage-parse-helper-factory.js"></script>
+  <script src="/app/passage-display/drill-service.js"></script>
+<!--
   <script src="/app/main.js"></script>
   <script src="/app/memorize-controller.js"></script>
   <script src="/app/start-controller.js"></script>
   <script src="/app/lookup-controller.js"></script>
-<!--  <script src="/app/passage-controller.js"></script> -->
+  <script src="/app/passage-controller.js"></script>
   <script src="/app/passage-select-directive.js"></script>
   <script src="/app/passage-text-directive.js"></script>
   <script src="/app/adjust-remedial-directive.js"></script>
@@ -34,9 +82,12 @@
   <script src="/app/drill-service.js"></script>
   <script src="/app/login-service.js"></script>
   <link rel="stylesheet" href="./mock.css">
+-->
 
 </head>
-<body>
-<div ui-view></div>
+<body ng-controller="MainCtrl">
+<div class="container-fluid" ui-view='passage'>
+<div class="container-fluid" ui-view='lookup'>
+</div>
 </body>
 </html>

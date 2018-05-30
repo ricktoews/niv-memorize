@@ -8,6 +8,7 @@ class Passage {
 		global $maxverse;
         $this->_db = $dbh;
         $this->_bible_table = 'bible_niv';
+        $this->_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 11011;
 		$ref = '';
 		if ($chapter) $ref = $chapter;
 		if ($verse) $ref .= ':' . $verse;
@@ -117,7 +118,7 @@ class Passage {
                     'chapter' => $chapter,
                     'verse' => $verse,
                     'text' => preg_replace('/"/', '', $text),
-					'wrong' => Drill::getWrongPositions($_SESSION['user_id'], $bible_table, $verse_id),
+					'wrong' => Drill::getWrongPositions($this->_user_id, $bible_table, $verse_id),
                 );
             }
         }

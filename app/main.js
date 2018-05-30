@@ -12,11 +12,11 @@
 			user_id = response.id;
 		});
 	});
-
 	var ref = {
 		book: 'Revelation',
 		chapter: '22'
 	};
+
 
 	app.config(function($locationProvider, $stateProvider, $urlRouterProvider) {
 		$locationProvider.html5Mode(true);
@@ -27,9 +27,8 @@
 
 			.state('memorize', {
 				url: '/',
-				abstract: true,
 				templateUrl: '/app/templates/layout.html',
-				controller: 'MemorizeCtrl'
+				controller: 'MainCtrl'
 			})
 
 			.state('memorize.start', {
@@ -55,4 +54,6 @@ console.log('memorize.lookup', $scope.lookup);
 					});
 				}
 			});
+
+;
 	});

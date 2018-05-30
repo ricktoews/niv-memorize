@@ -4,7 +4,7 @@ angular.module('Memorize')
 		var text;
 		var wrong, wrongNdx = 0;
 		var entryCorrect = true;
-		var currentVerse, previousVerse;
+		var currentVerse, previousVerse; // Current and previous verse elements.
 		var inputFields, lastInputField;
 		var isShiftOn = false;
 		var nextElId, prevElId;
@@ -36,8 +36,8 @@ angular.module('Memorize')
 			previousVerse = currentVerse;
 			currentVerse = evtObj.currentTarget;
 //			isShiftOn = evtObj.shiftKey; // Leave shift key off for now. This isn't the right place to check it.
-			if (currentVerse.id && currentVerse.id.substr(0,5) === 'text-') {
-				var ndx = parseInt(currentVerse.id.substr(5), 10);
+			if (currentVerse.id) {
+				var ndx = parseInt(currentVerse.dataset.verse);
 				nextElId = getNextElId(ndx);
 				prevElId = getPrevElId(ndx);
 				verseId = currentVerse.dataset.verseId;
@@ -45,18 +45,18 @@ angular.module('Memorize')
 		}
 
 		function getNextElId(ndx) {
-			var id = 'text-' + (ndx+1)
+			var id = 'verse-' + (ndx+1)
 			if (document.getElementById(id))
 				return id;
 			else
-				return 'text-0';
+				return 'verse-1';
 		}
 
 		function getPrevElId(ndx) {
-			if (ndx > 0)
-				return 'text-' + (ndx-1);
+			if (ndx > 1)
+				return 'verse-' + (ndx-1);
 			else
-				return 'text-0';
+				return 'text-1';
 		}
 
 		function getNextPrevInputFields(el) {
@@ -117,10 +117,8 @@ angular.module('Memorize')
 			restoreText();
 			latestKeydownEvent && latestKeydownEvent.preventDefault();
 			if (isShiftOn) {
-console.log('Go to previous verse.');
 				focusText(prevElId);
 			} else {
-console.log('Go to next verse.');
 				focusText(nextElId);
 			}
 		}
@@ -135,30 +133,28 @@ console.log('Go to next verse.');
 		}
 
 		function checkEntry() {
-			var result = PassageParseHelper.isMatch(currentVerse.innerText);
+			var verseNum = currentVerse.dataset.verse;
+			var result = PassageParseHelper.isMatch(verseNum, currentVerse.innerText);
 			entryCorrect = result.correct;
 			if (entryCorrect) {
 				$(currentVerse).css('color', 'green');
 				if (PassageParseHelper.isEntryComplete()) {
-console.log('entry is complete; saving and moving to next verse.');
-					drill.save(verseId, -1);
+//					drill.save(verseId, -1);
 					navToNext();
 				}
 			}
 			else {
-console.log('Entry not correct; should mark verse in some way.');
 				$(currentVerse).css('color', 'red');
-				drill.save(verseId, result.incorrectNdx);
+//				drill.save(verseId, result.incorrectNdx);
 			}
 		}
 
 		function presentField(el) {
-
+/*
 			text = el.dataset.text;
 			wrong = el.dataset.wrong.split('|')
 						.map(function(item) { return parseInt(item,10); })
 						.filter(function(item) { return !isNaN(item); });
-console.log('presentField wrong', wrong);
 			PassageParseHelper.parseText(el.dataset.text);
 			el.className = 'rehearse-text';
 			if (wrong.length > 0) {
@@ -169,12 +165,16 @@ console.log('presentField wrong', wrong);
 
 			}
 			else {
+*/
 				el.innerText = '';
 				el.contentEditable = true;
 				el.focus();
+/*
 			}
+*/
 		}
 
+/*
 		function constructPromptText(text, wrong) {
 			if (!wrong || wrong.length === 0)
 				return text;
@@ -184,24 +184,22 @@ console.log('presentField wrong', wrong);
 				});
 			}
 		}
+*/
 
 		function restoreText(el) {
 			if (!el) {
 				el = currentVerse;
 			}
 			el.contentEditable = false;
-			el.className = '';
+			el.className = 'text-input';
 			var typedIn = el.innerText;
-			el.innerHTML = el.dataset.text;
+			el.innerHTML = PassageParseHelper.getPassage(el.dataset.verse);
 		}
 
 		return {
 			restrict: 'AE',
-			templateUrl: '/app/templates/enter-verse.html',
+			templateUrl: '/app/passage-display/enter-verse.tmpl.html',
 			link: function(scope, el, attrs) {
-console.log('passage-text-directive');
-//				PassageParseHelper.parseText(scope.item.text);
-//				scope.words = PassageParseHelper.addSpans(scope.item.text);
 
 				scope.firePresentField = function(evt) {
 					var alreadyHere = isCurrentVerse(evt.currentTarget) ? true : false;
@@ -213,20 +211,20 @@ console.log('passage-text-directive');
 					return true;
 				};
 
+/*
 				scope.fireRestoreText = function(evt) {
-return false;
 					var el = evt.currentTarget;
 					if (el) {
 						restoreText(el);
 					}
 					return false;
 				};
-
+*/
 				scope.getKey = function(evt) {
 					getElId(evt);
 					getKey(evt);
 				};
-
+/*
 				scope.adjustRemedial = function(evt) {
 					var el = evt.currentTarget;
 					var id = parseInt(el.id.substr(9), 10);
@@ -236,20 +234,14 @@ return false;
 					adjust.setAttribute('adjust-remedial', 'adjust-remedial');
 					verseEl.appendChild(adjust);
 console.log('adjustRemedial verse', verseEl);
-/*
-					var verseEl = document.getElementById('text-' + id);
-					var wrongPos = verseEl.dataset.wrong.split('|')
-						.map(function(item) { return parseInt(item,10); })
-						.filter(function(item) { return !isNaN(item); });
-					verseEl.setAttribute('style', 'background-color:#ccf');
-					PassageParseHelper.parseText(verseEl.dataset.text);
-					verseEl.innerHTML = PassageParseHelper.addSpans(wrongPos);
-*/
 				};
+*/
 
+/*
 				scope.toggleRemedial = function(evt) {
 					console.log('toggleRemedial', evt.currentTarget);
 				}
+*/
 			}
 		};
 	});

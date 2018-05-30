@@ -1,0 +1,6 @@
+<div class="row">
+  <div class="verse-container col-md-12">
+    <div class="verse-num">{{entry.verse}}</div>
+    <div ng-keydown="getKey($event)" id="verse-{{entry.verse}}" data-verse="{{entry.verse}}" class="text-input" contenteditable ng-blur="checkEntry($event)" ng-click="firePresentField($event)">{{entry.text}}</div>
+  </div>
+</div>

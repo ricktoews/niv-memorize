@@ -11,17 +11,6 @@ console.log('beginning of PassageCtrl');
 
 		loadPassage();
 
-/*
-		$scope.$watch('ref', function() {
-console.log('watch ref', arguments);
-$state.go('lookup');
-			loadPassage();
-		});
-
-		$scope.$watch('state', function() {
-console.log('watch state', arguments);
-		});
-*/
 	});
 
 
