@@ -27,19 +27,19 @@
 
 			.state('memorize', {
 				url: '/',
-				templateUrl: '/app/templates/layout.html',
+				templateUrl: './app/templates/layout.html',
 				controller: 'MainCtrl'
 			})
 
 			.state('memorize.start', {
 				url: '',
-				templateUrl: '/app/templates/initial-passage-select.html',
+				templateUrl: './app/templates/initial-passage-select.html',
 				controller: 'StartCtrl'
 			})
 
 			.state('memorize.lookup', {
 				url: 'lookup/:ref',
-				templateUrl: '/app/templates/enter-verse.html',
+				templateUrl: './app/templates/enter-verse.html',
 				controller: function($scope, $stateParams, getPassage) {
 					$scope.lookup = $stateParams.ref.replace(/-/g, ' ');
 console.log('memorize.lookup', $scope.lookup);

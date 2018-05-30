@@ -23,7 +23,7 @@ angular.module('Memorize', ['ui.router', 'ngCacheBuster'])
 			views: {
 				'passage@': {
 					controller: 'MainCtrl',
-					templateUrl: 'app/templates/layout.tmpl.html'
+					templateUrl: './app/templates/layout.tmpl.html'
 				}
 			}
 		})
@@ -33,7 +33,7 @@ angular.module('Memorize', ['ui.router', 'ngCacheBuster'])
 			views: {
 				'lookup@': {
 					controller: 'DisplayCtrl',
-					templateUrl: 'app/passage-display/passage-text.tmpl.html'
+					templateUrl: './app/passage-display/passage-text.tmpl.html'
 				}
 			}
 		})
@@ -43,7 +43,7 @@ angular.module('Memorize', ['ui.router', 'ngCacheBuster'])
 			views: {
 				'rand-verse@': {
 					controller: 'RandVerseCtrl',
-					templateUrl: 'app/passage-display/random-verse.tmpl.html'
+					templateUrl: './app/passage-display/random-verse.tmpl.html'
 				}
 			}
 		})

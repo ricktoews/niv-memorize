@@ -15,7 +15,7 @@ angular.module('Memorize')
 			scope: {
 				ref: '='
 			},
-			templateUrl: '/app/templates/passage-select.html',
+			templateUrl: './app/templates/passage-select.html',
 			link: function(scope, el, attrs) {
 console.log('passage select directive');
 				scope.getKey = function(evt) {

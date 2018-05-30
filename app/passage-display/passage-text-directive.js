@@ -198,7 +198,7 @@ angular.module('Memorize')
 
 		return {
 			restrict: 'AE',
-			templateUrl: '/app/passage-display/enter-verse.tmpl.html',
+			templateUrl: './app/passage-display/enter-verse.tmpl.html',
 			link: function(scope, el, attrs) {
 
 				scope.firePresentField = function(evt) {

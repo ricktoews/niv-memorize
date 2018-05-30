@@ -4,7 +4,7 @@ angular.module('Memorize')
 
 		return {
 			restrict: 'AE',
-			templateUrl: '/app/templates/passage-display.html',
+			templateUrl: './app/templates/passage-display.html',
 			link: function(scope, el, attrs) {
 console.log('passage display directive');
 			}
