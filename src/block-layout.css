@@ -1,0 +1,40 @@
+.content {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.memory-blocks {
+  border-top: 2px solid black;
+  padding-top: 10px;
+  font-size:11pt;
+  color:#333;
+}
+
+.block-layout {
+  display:grid;
+  grid-template-columns: 150px auto;
+  grid-gap: 10px;
+  padding-bottom: 20px;
+}
+
+.block-layout:hover {
+  cursor: pointer;
+}
+
+.block-label {
+  padding-left: 10px;
+}
+
+.block-layout:hover .block-label {
+  border-left: 2px solid #0df;
+}
+
+.block-text {
+}
+
+.show-input {
+  color: #ff9900;
+}
+
+.show-text {
+}
