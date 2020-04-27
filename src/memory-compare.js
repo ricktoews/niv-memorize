@@ -1,5 +1,7 @@
-const finalCharList = [...'.,!?;: '];
+const finalCharList = [...'.,!?;: \''];
+const firstCharList = ['"\''];
 const finalCharRe = new RegExp('[' + finalCharList.join('') + ']', 'g');
+const firstCharRe = new RegExp('[' + firstCharList.join('') + ']', 'g');
 
 
 const wordChar = /[-'\w]/
@@ -30,6 +32,7 @@ function isWordDivider(str) {
 function getWordList(str) {
   str = str.replace(String.fromCharCode(160), ' ');
   str = str.replace(finalCharRe, ' ');
+  str = str.replace(firstCharRe, ' ');
   str = str.replace(/--/g, ' ');
   var wordList = str.split(' ').filter(w => w.length);
 

@@ -4,7 +4,6 @@ import './passage-select.css';
 
 function PassageSelect(props) {
   const [ state, setState ] = useState({ passage: '', showDropdown: false, title: '', refs: [] });
-console.log('PassageSelect function state', state);
 
   const handleKey = (e) => {
     var el = e.currentTarget;
@@ -22,9 +21,13 @@ console.log('PassageSelect function state', state);
     var el = e.currentTarget;
     var { refndx } = el.dataset;
     var select = state.refs[refndx];
-    var title = `${select.book} ${select.chapter}`;
+    var title = select.chapter ? `${select.book} ${select.chapter}` : select;
     setState({ ...state, passage: '', title, showDropdown: false });
-    props.selectPassage(select.book, select.chapter);
+    if (select.chapter) {
+      props.selectPassage(select.book, select.chapter);
+    } else {
+      props.selectPassage(select);
+    }
   }
 
   const handleSelect = (e) => {
@@ -32,7 +35,11 @@ console.log('PassageSelect function state', state);
     var el = e.currentTarget;
     getTitles(el.value).then(res => {
       if (res.length === 1) {
-        props.selectPassage(res[0].book, res[0].chapter);
+        if (parseInt(res[0].chapter, 10)) {
+          props.selectPassage(res[0].book, res[0].chapter);
+        } else {
+          props.selectPassage(res[0]);
+        }
       }
     });
   }
@@ -45,7 +52,7 @@ console.log('PassageSelect function state', state);
           <ul>
           { 
             state.refs.map((item, key) => {
-              var title = `${item.book} ${item.chapter}`;
+              var title = item.chapter ? `${item.book} ${item.chapter}` : item;
               return <li key={key} onClick={handleDropdown} data-refndx={key}>{title}</li>;
             })
           }

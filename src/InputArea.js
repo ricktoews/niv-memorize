@@ -9,7 +9,6 @@ function InputArea(props) {
   const [state, setState] = useState({ textEl: null, entryStatus: [] });
 
   useEffect(() => {
-console.log('Should focus on inputEl', inputEl);
     inputEl.current.focus();
   }, []);
 
