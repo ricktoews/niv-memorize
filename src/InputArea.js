@@ -42,10 +42,10 @@ function InputArea(props) {
     setWordState({ ...wordState, textEl });
     evaluate();
   }
-console.log('verseState', verseState);
+
   return (
     <div>
-      <div className="entry-status" style={{display: 'none'}}>{entryStatus().map(w => w)}</div>
+{/*      <div className="entry-status" style={{display: 'none'}}>{entryStatus().map(w => w)}</div> */}
       <div ref={inputEl} onKeyUp={handleKey} className={'input-area ' + (!verseState ? 'incorrect' : '')} contentEditable="true" />
     </div>
   );
