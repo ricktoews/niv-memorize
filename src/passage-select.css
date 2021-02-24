@@ -22,6 +22,7 @@
 
 .dropdown {
   position: absolute;
+  z-index: 100;
   background-color: white;
   border: 1px solid black;
   border-radius: 5px;
