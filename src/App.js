@@ -1,53 +1,40 @@
-import React, { useEffect, useRef } from 'react';
-import Passage from './Passage';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyles } from './global';
+import { theme } from './theme';
+import Masthead from './Masthead';
+import SubMenuBar from './SubMenuBar';
+
+import { Switch, Route } from 'react-router-dom';
+import Home from './components/Home';
+import TextToVerse from './components/quiz/TextToVerse';
+
+function withNav(MyComponent, title) {
+
+  return function(...props) {
+
+    return (
+    <>
+      <Masthead title={title} />
+      <main>
+        <MyComponent {...props} />
+      </main>
+    </>
+    );
+  }
+};
 
 function App() {
-  const markRef = useRef(null);
-
-  var menus = [];
-
-  function handleAppClick(e) {
-    if (e.target.className === 'mark-text-overlay') {
-      markRef.current.style.display = 'none';
-    }
-    menus.forEach(m => {
-      if (!m.ref.current.contains(e.target)) {
-        m.handler();
-      }
-    });
-  }
-
-  useEffect(() => {
-    document.addEventListener('click', handleAppClick);
-  }, []);
-
-  function setClickedMenu(ref, handler) {
-    menus.push({ ref, handler });
-  }
-
-  function acceptMarked(e) {
-    console.log('accept')
-  }
-
-  function rejectMarked(e) {
-    console.log('reject')
-  }
 
   return (
-    <div className="App">
-      <div ref={markRef} className={'mark-text-overlay'}>
-        <div className="mark-text-wrapper">
-          <div className="content"></div>
-          <span onClick={acceptMarked} className="accept"></span>
-          <span onClick={rejectMarked} className="reject"></span>
-        </div>
-      </div>
-
-      <div className="content">
-        <Passage markTextRef={markRef} setClickedMenu={setClickedMenu} />
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Switch>
+        <Route exact path="/" component={withNav(Home, 'Bible Passage Memorization')} />
+        <Route exact path="/text-to-verse" component={withNav(TextToVerse, 'Bible Passage Quiz By Text')} />
+      </Switch>
+    </ThemeProvider>
   );
 }
 

@@ -1,0 +1,55 @@
+.passage-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.passage-header > div {
+  position: relative;
+  display: block;
+  height: 40px;
+}
+
+.passage-header h2 {
+  margin: 0;
+  color: #09f;
+}
+
+#passage-select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.dropdown {
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.hide-dropdown {
+  display: none;
+}
+
+.show-dropdown {
+  display: block;
+}
+
+.dropdown ul {
+  margin: 0;
+  list-style-type: none;
+  padding: 5px;
+  font-size: 10pt;
+}
+
+.dropdown li {
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+.dropdown li:hover {
+  background-color: #ccc;
+}
