@@ -5,14 +5,12 @@ import './passage-select.css';
 function PassageSelect(props) {
   const [ state, setState ] = useState({ passage: '', showDropdown: false, title: '', refs: [] });
 
-  const handleKey = (e) => {
+  const handleKey = async (e) => {
     var el = e.currentTarget;
     setState({ ...state, passage: el.value });
     if (el.value.length >= 3) {
-      getTitles(el.value).then(res => {
-        var refs = res;
-        setState({ ...state, passage: el.value, showDropdown: true, refs: refs });
-      });
+      var res = await getTitles(el.value);
+      setState({ ...state, passage: el.value, showDropdown: true, refs: res });
     }
   }
 
@@ -30,18 +28,17 @@ function PassageSelect(props) {
     }
   }
 
-  const handleSelect = (e) => {
+  const handleSelect = async (e) => {
     e.preventDefault();
     var el = e.currentTarget;
-    getTitles(el.value).then(res => {
-      if (res.length === 1) {
-        if (parseInt(res[0].chapter, 10)) {
-          props.selectPassage(res[0].book, res[0].chapter);
-        } else {
-          props.selectPassage(res[0]);
-        }
+    var res = await getTitles(el.value);
+    if (res.length === 1) {
+      if (parseInt(res[0].chapter, 10)) {
+        props.selectPassage(res[0].book, res[0].chapter);
+      } else {
+        props.selectPassage(res[0]);
       }
-    });
+    }
   }
 
   return (
