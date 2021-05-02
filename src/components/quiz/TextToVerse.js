@@ -4,6 +4,7 @@ import PassageSelect from './PassageSelect';
 import Block from './Block';
 import { getPassage } from './memory-api';
 import { getWordList } from './memory-compare';
+import { getExcerpt } from './excerpt';
 import './block-layout.css';
 
 const VerseBtnBlock = styled.div`

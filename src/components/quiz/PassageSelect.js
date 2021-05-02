@@ -44,7 +44,7 @@ function PassageSelect(props) {
   return (
     <div className="passage-header">
       <div>
-        <input value={state.passage} type="text" placeholder="Enter passage" id="passage-select" onChange={handleKey} onBlur={handleSelect} />
+        <input value={state.passage} autoComplete="off" type="text" placeholder="Enter passage" id="passage-select" onChange={handleKey} onBlur={handleSelect} />
         <div className={'dropdown ' + (state.showDropdown ? 'show-dropdown' : 'hide-dropdown') }>
           <ul>
           { 
