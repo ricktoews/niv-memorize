@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import MediaQuery from 'react-responsive';
 import { getTitles } from './memory-api';
 import './passage-select.css';
 
@@ -56,9 +57,11 @@ function PassageSelect(props) {
           </ul>
         </div>
       </div>
+      <MediaQuery query="(min-width:481px) and (max-width:4096px)">
       <div>
         <h2>{state.title}</h2>
       </div>
+      </MediaQuery>
     </div>
   );
 }
