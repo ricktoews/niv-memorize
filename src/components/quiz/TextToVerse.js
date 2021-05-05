@@ -84,7 +84,7 @@ console.log('You are finished.');
   }
 
   return (
-    <div className="content">
+    <div className="container">
       <PassageSelect selectPassage={selectPassage} />
       {state.memoryText.length === 0 ? null : (
       <>
