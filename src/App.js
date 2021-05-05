@@ -40,7 +40,7 @@ function App() {
 
       <MediaQuery query="(max-width: 480px)">
         <Switch>
-          <Route exact path="/text-to-verse" component={withNav(TextToVerse, 'Bible Passage Quiz By Text')} />
+          <Route exact path="/" component={withNav(TextToVerse, 'Bible Passage Quiz By Text')} />
         </Switch>
       </MediaQuery>
 

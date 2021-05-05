@@ -25,6 +25,20 @@ const VerseBtn = styled.div`
     margin: 3px;
 `;
 
+const VerseBtnLg = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #09f;
+    color: white;
+    cursor: pointer;
+    margin: 3px;
+`;
+
 function Passage(props) {
   const [state, setState] = useState({ book: '', chapter: '', memoryText: [], currentIndex: 0 });
   const [randVerseNdx, setRandVerseNdx] = useState(0);
@@ -94,7 +108,7 @@ console.log('You are finished.');
 
       <VerseBtnBlock>
         { state.memoryText.map((item, verseNdx) => {
-            return <VerseBtn key={verseNdx} className="verse-number" data-verse={verseNdx + 1} onClick={handleIdentifyVerse}>{verseNdx + 1}</VerseBtn>;
+            return <VerseBtnLg key={verseNdx} className="verse-number" data-verse={verseNdx + 1} onClick={handleIdentifyVerse}>{verseNdx + 1}</VerseBtnLg>;
           }) 
         }
       </VerseBtnBlock>
