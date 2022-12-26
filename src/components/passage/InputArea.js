@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "./input-area.css";
 import { memCompare, isWordDivider, getWordList, isBlockFinished } from './memory-compare';
+
+const DOWN_ARROW = 40;
+const UP_ARROW = 38;
+
 function InputArea(props) {
-  const { memoryText, getNextBlock } = props;
+  const { memoryText, getPrevBlock, getNextBlock } = props;
   const memTextWords = getWordList(memoryText);
   const inputEl = useRef(null);
 
@@ -39,6 +43,13 @@ function InputArea(props) {
 
   function handleKey(e) {
     var textEl = e.target;
+    if (e.keyCode === DOWN_ARROW) {
+      console.log('====> next verse');
+      getNextBlock();
+    } else if (e.keyCode === UP_ARROW) {
+      console.log('====> previous verse');
+      getPrevBlock();
+    }
     setWordState({ ...wordState, textEl });
     evaluate();
   }
