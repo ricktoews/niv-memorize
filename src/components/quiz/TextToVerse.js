@@ -40,9 +40,12 @@ const VerseBtnLg = styled.div`
 `;
 
 function Passage(props) {
-  const [state, setState] = useState({ book: '', chapter: '', memoryText: [], currentIndex: 0 });
+  const [memoryText, setMemoryText] = useState([]);
+  const [book, setBook] = useState('');
+  const [chapter, setChapter] = useState('');
   const [randVerseNdx, setRandVerseNdx] = useState(0);
   const [versePool, setVersePool] = useState([]);
+  const [finished, setFinished] = useState(false);
 
   useEffect(() => {
   }, []);
@@ -58,7 +61,9 @@ function Passage(props) {
           pool.push(ndx);
         });
 
-        setState({ ...state, currentIndex: 0, memoryText: items });
+        setBook(book);
+        setChapter(chapter);
+        setMemoryText(items);
         setVersePool(pool);
         selectRandomVerse(pool);
         return items;
@@ -69,12 +74,20 @@ function Passage(props) {
     loadPassage(book, chapter);
   }
 
+  const restartQuiz = e => {
+    var pool = [];
+    console.log('restartQuiz; memoryText', memoryText);
+    memoryText.forEach((item, ndx) => {
+      pool.push(ndx);
+    });
+    setFinished(false);
+    setVersePool(pool);
+    selectRandomVerse(pool);
+    console.log('Pool refreshed', pool);
+  }
+
   function selectRandomVerse(pool) {
 console.log('select random verse from', pool);
-    if (pool.length === 0) {
-console.log('You are finished.');
-      return;
-    }
     var poolNdx = Math.floor(Math.random() * pool.length);
     var verseNdx = pool[poolNdx];
     pool.splice(poolNdx, 1);
@@ -93,25 +106,36 @@ console.log('You are finished.');
     }
     console.log('handleIdentifyVerse', selectedVerse, currentVerse);
     if (selectedVerse == currentVerse) {
-      selectRandomVerse(versePool);
+      if (versePool.length === 0) {
+        setFinished(true);
+      } else {
+        selectRandomVerse(versePool);
+      }
     }
   }
 
   return (
     <div className="container">
       <PassageSelect selectPassage={selectPassage} />
-      {state.memoryText.length === 0 ? null : (
+      {memoryText.length === 0 ? null : (
       <>
+
       <div className="memory-blocks">
-        {state.memoryText[randVerseNdx].text}
+        {memoryText[randVerseNdx].text}
       </div>
 
-      <VerseBtnBlock>
-        { state.memoryText.map((item, verseNdx) => {
-            return <VerseBtnLg key={verseNdx} className="verse-number" data-verse={verseNdx + 1} onClick={handleIdentifyVerse}>{verseNdx + 1}</VerseBtnLg>;
-          }) 
-        }
-      </VerseBtnBlock>
+      { finished === false ? (
+        <VerseBtnBlock>
+          { memoryText.map((item, verseNdx) => {
+              return <VerseBtnLg key={verseNdx} className="verse-number" data-verse={verseNdx + 1} onClick={handleIdentifyVerse}>{verseNdx + 1}</VerseBtnLg>;
+            }) 
+          }
+        </VerseBtnBlock>
+
+      ) : (
+        <button className="btn btn-info" onClick={restartQuiz}>Restart</button>
+      )}
+        
       </>
       )}
     </div>
