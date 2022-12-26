@@ -20,6 +20,10 @@ function Block(props) {
     selectBlock(index+1);
   }
 
+  function getPrevBlock() {
+    selectBlock(index - 1);
+  }
+
   // Right now, this mainly verifies the text to be checked.
   function attentionFocus(e) {
     var el = e.currentTarget;
@@ -70,7 +74,7 @@ function Block(props) {
       blockPieces = attentionPrompt(blockText);
       input = blockPieces.map(b => b);
     } else {
-      input = <div className='block-text show-input'><InputArea memoryText={blockText} getNextBlock={getNextBlock} /></div>
+      input = <div className='block-text show-input'><InputArea memoryText={blockText} getPrevBlock={getPrevBlock} getNextBlock={getNextBlock} /></div>
     }
     if (selected) {
       return input
@@ -82,7 +86,7 @@ function Block(props) {
   var selectedClass = selected ? 'show-input' : 'show-text';
   return (
     <div onClick={handleBlockClick} className="block-layout">
-      <div className="block-label"><BlockMenu clearText={clearText} markText={markText} ndx={ndx} setClickedMenu={setClickedMenu} />{label}</div>
+      <div className="block-label">{label}</div>
       <div className={'block-text ' + selectedClass}>{showTextOrInput(text)}</div>
     </div>
     
